@@ -39,8 +39,13 @@ pipeline {
                 }
             }
         }
-
         stage('Fourth') {
+            steps {
+                sh 'docker container delete  --name python1-container'
+            }
+        }
+
+        stage('Fifth') {
             steps {
                 sh 'docker run -d -p 5000:5000 --name python1-container ${dockerhub}/${imgname}:${imgtag}'
             }
