@@ -41,7 +41,7 @@ pipeline {
         }
         stage('Fourth') {
             steps {
-                sh 'docker container rm  python1-container'
+                sh 'docker container rm -f  python1-container'
             }
         }
 
