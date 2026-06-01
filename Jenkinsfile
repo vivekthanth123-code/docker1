@@ -41,7 +41,7 @@ pipeline {
         }
         stage('Fourth') {
             steps {
-                sh 'docker container delete  --name python1-container'
+                sh 'docker container delete python1-container'
             }
         }
 
