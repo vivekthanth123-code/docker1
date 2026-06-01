@@ -1,6 +1,14 @@
 pipeline {
     agent any
 
+
+    environment {
+        imgname = "python1"
+        imgtag  = "${BUILD_NUMBER}"
+        dockerhub = "vivekthanth1"
+    }
+
+
     stages {
 
         stage('First') {
@@ -11,7 +19,7 @@ pipeline {
 
         stage('Second') {
             steps {
-                sh 'docker build -t vivekthanth1/python1:latest .'
+                sh 'docker build -t ${dockerhub}/${imgname}:${imgtag} .'
             }
         }
 
@@ -26,7 +34,7 @@ pipeline {
                 ]) {
                     sh '''
                     docker login -u ${username} -p ${password}
-                    docker push vivekthanth1/python1:latest
+                    docker push ${dockerhub}/${imgname}:${imgtag}
                     '''
                 }
             }
@@ -34,7 +42,7 @@ pipeline {
 
         stage('Fourth') {
             steps {
-                sh 'docker run -d -p 5000:5000 --name python1-container vivekthanth1/python1:latest'
+                sh 'docker run -d -p 5000:5000 --name python1-container ${dockerhub}/${imgname}:${imgtag}'
             }
         }
     }
